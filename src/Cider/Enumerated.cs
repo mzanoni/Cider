@@ -35,7 +35,7 @@ public abstract class Enumerated<TEnum> : IEnumerated where TEnum : IEnumerated
         return _valuesByName.Value.TryGetValue(enumName, out value);
     }
 
-    public static bool operator !=(Enumerated<TEnum> x, Enumerated<TEnum> y)
+    public static bool operator !=(Enumerated<TEnum>? x, Enumerated<TEnum>? y)
     {
         return !Equals(x, y);
     }
@@ -48,7 +48,8 @@ public abstract class Enumerated<TEnum> : IEnumerated where TEnum : IEnumerated
     protected bool Equals(Enumerated<TEnum>? classEnumBase)
     {
         if (classEnumBase == null) return false;
-        return GetType() == classEnumBase.GetType() && Equals(Name, classEnumBase.Name);
+        return GetType() == classEnumBase.GetType() && 
+               Equals(Name, classEnumBase.Name);
     }
 
     public override bool Equals(object? obj)

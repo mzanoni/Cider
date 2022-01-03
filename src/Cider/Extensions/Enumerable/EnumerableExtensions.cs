@@ -19,4 +19,20 @@ public static class EnumerableExtensions
             action(item);
         }
     }
+
+    public static IEnumerable<T> If<T>(this IEnumerable<T> source, bool condition, Func<IEnumerable<T>, IEnumerable<T>> transform)
+        where T : class
+    {
+        if (source == null) throw new ArgumentNullException(nameof(source));
+        if (transform == null) throw new ArgumentNullException(nameof(transform));
+
+        return condition ? transform(source) : source;
+    }
+
+    public static TU[] SelectToArray<T, TU>(this IEnumerable<T> source, Func<T, TU> selector)
+    {
+        return source.EmptyIfNull()
+            .Select(selector)
+            .ToArray();
+    }
 }
