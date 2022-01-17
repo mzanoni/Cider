@@ -14,7 +14,8 @@ public class SqlTextTester
     [Fact]
     public void Where_1EQ1()
     {
-        SqlText subject = SqlText.Empty.Where("1 = 1");
+        SqlText subject = SqlText.Empty
+            .Where("1 = 1");
 
         Assert.Equal("WHERE (1 = 1)", subject);
     }
@@ -90,7 +91,8 @@ public class SqlTextTester
     [Fact]
     public void BuildConditions_1EQ1_NoWhere()
     {
-        SqlText subject = SqlText.Empty.Where("1 = 1");
+        SqlText subject = SqlText.Empty
+            .Where("1 = 1");
 
         Assert.Equal("(1 = 1)", subject.BuildConditions());
     }
