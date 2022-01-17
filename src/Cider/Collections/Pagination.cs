@@ -1,36 +1,35 @@
-﻿namespace Cider.Collections
+﻿namespace Cider.Collections;
+
+public readonly struct Pagination
 {
-    public readonly struct Pagination
+    public Pagination(uint pageSize, uint pageNumber)
     {
-        public Pagination(uint pageSize, uint pageNumber)
+        PageSize = pageSize;
+        PageNumber = pageNumber;
+    }
+
+    public uint PageNumber { get; }
+    public uint PageSize { get; }
+
+    public uint FirstRecord => PageNumber == 0 ? 1 : ((PageNumber - 1) * PageSize) + 1;
+
+    public uint LastRecord => PageSize == 0 ? FirstRecord : FirstRecord + PageSize - 1;
+
+    public uint PageCount(uint totalCount)
+    {
+        uint numberOfPages = 0u;
+
+        if (PageSize != 0)
         {
-            PageSize = pageSize;
-            PageNumber = pageNumber;
+            uint n = totalCount % PageSize;
+            numberOfPages = n > 0 ? (totalCount / PageSize) + 1 : totalCount / PageSize;
         }
 
-        public uint PageNumber { get; }
-        public uint PageSize { get; }
+        return numberOfPages;
+    }
 
-        public uint FirstRecord => PageNumber == 0 ? 1 : ((PageNumber - 1) * PageSize) + 1;
-
-        public uint LastRecord => PageSize == 0 ? FirstRecord : FirstRecord + PageSize - 1;
-
-        public uint PageCount(uint totalCount)
-        {
-            uint numberOfPages = 0u;
-
-            if (PageSize != 0)
-            {
-                uint n = totalCount % PageSize;
-                numberOfPages = n > 0 ? (totalCount / PageSize) + 1 : totalCount / PageSize;
-            }
-
-            return numberOfPages;
-        }
-
-        public Pagination Next(uint increment = 1u)
-        {
-            return new Pagination(PageSize, PageNumber + increment);
-        }
+    public Pagination Next(uint increment = 1u)
+    {
+        return new Pagination(PageSize, PageNumber + increment);
     }
 }

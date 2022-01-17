@@ -1,4 +1,7 @@
-﻿namespace Cider;
+﻿using System;
+using System.Collections.Generic;
+
+namespace Cider;
 
 public class Range<T> : IEquatable<Range<T>> where T : IComparable<T>
 {

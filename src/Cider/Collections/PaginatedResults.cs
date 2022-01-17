@@ -1,4 +1,7 @@
-﻿namespace Cider.Collections;
+﻿using System;
+using System.Linq;
+
+namespace Cider.Collections;
 
 public class PaginatedResults<T>
 {
