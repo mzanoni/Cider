@@ -20,7 +20,7 @@ public class SqlTextTester
     }
 
     [Fact]
-    public void Where_1EQ1_OR2EQ2()
+    public void Where_1EQ1_OR_2EQ2()
     {
         SqlText subject = SqlText.Empty
             .Where("1 = 1")
@@ -40,7 +40,7 @@ public class SqlTextTester
     }
 
     [Fact]
-    public void Where_SubWhere()
+    public void Where_NestedWhere()
     {
         SqlText subject = SqlText.Empty
             .Where("1 = 1")
@@ -85,5 +85,13 @@ public class SqlTextTester
             .IfNotWhere(false, "1 = 1");
 
         Assert.Equal("WHERE (1 = 1)", subject);
+    }
+
+    [Fact]
+    public void BuildConditions_1EQ1_NoWhere()
+    {
+        SqlText subject = SqlText.Empty.Where("1 = 1");
+
+        Assert.Equal("(1 = 1)", subject.BuildConditions());
     }
 }

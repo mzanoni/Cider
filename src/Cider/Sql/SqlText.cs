@@ -46,9 +46,7 @@ public class SqlText
     public string BuildConditions()
     {
         if (!_conditions.Any())
-        {
             return string.Empty;
-        }
 
         var builder = new StringBuilder();
 
